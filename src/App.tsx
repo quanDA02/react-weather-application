@@ -11,7 +11,7 @@ function App() {
   })
   return (
     <div className="flex flex-col gap-8">
-      <Current current={data.current}/>
+      <Current current={data.current} location={data.location}/>
       <Hourly hourly={data.hourly}/>
       <Forecast forecast={data.forecast}/>
       <Location location={data.location}/>

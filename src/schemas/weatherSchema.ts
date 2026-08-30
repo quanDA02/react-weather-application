@@ -17,38 +17,28 @@ export const weatherSchema = z.object({
     temp_c: z.number(),
     temp_f: z.number(),
     is_day: z.number(),
-
     condition: z.object({
       text: z.string(),
       icon: z.string(),
       code: z.number(),
     }),
-
     wind_mph: z.number(),
     wind_kph: z.number(),
     wind_degree: z.number(),
     wind_dir: z.string(),
-
     pressure_mb: z.number(),
     pressure_in: z.number(),
-
     precip_mm: z.number(),
     precip_in: z.number(),
-
     humidity: z.number(),
     cloud: z.number(),
-
     feelslike_c: z.number(),
     feelslike_f: z.number(),
-
     vis_km: z.number(),
     vis_miles: z.number(),
-
     uv: z.number(),
-
     gust_mph: z.number(),
     gust_kph: z.number(),
-
   }),
 
   forecast: z.object({
@@ -56,7 +46,6 @@ export const weatherSchema = z.object({
       z.object({
         date: z.string(),
         date_epoch: z.number(),
-
         day: z.object({
           maxtemp_c: z.number(),
           maxtemp_f: z.number(),
@@ -64,33 +53,24 @@ export const weatherSchema = z.object({
           mintemp_f: z.number(),
           avgtemp_c: z.number(),
           avgtemp_f: z.number(),
-
           maxwind_mph: z.number(),
           maxwind_kph: z.number(),
-
           totalprecip_mm: z.number(),
           totalprecip_in: z.number(),
-
           avgvis_km: z.number(),
           avgvis_miles: z.number(),
-
           avghumidity: z.number(),
-
           daily_will_it_rain: z.number(),
           daily_chance_of_rain: z.number(),
-
           daily_will_it_snow: z.number(),
           daily_chance_of_snow: z.number(),
-
           condition: z.object({
             text: z.string(),
             icon: z.string(),
             code: z.number(),
           }),
-
           uv: z.number(),
         }),
-
         astro: z.object({
           sunrise: z.string(),
           sunset: z.string(),
@@ -99,61 +79,44 @@ export const weatherSchema = z.object({
           moon_phase: z.string(),
           moon_illumination: z.number(),
         }),
-
         hour: z.array(
           z.object({
             time_epoch: z.number(),
             time: z.string(),
-
             temp_c: z.number(),
             temp_f: z.number(),
-
             is_day: z.number(),
-
             condition: z.object({
               text: z.string(),
               icon: z.string(),
               code: z.number(),
             }),
-
             wind_mph: z.number(),
             wind_kph: z.number(),
             wind_degree: z.number(),
             wind_dir: z.string(),
-
             pressure_mb: z.number(),
             pressure_in: z.number(),
-
             precip_mm: z.number(),
             precip_in: z.number(),
-
             humidity: z.number(),
             cloud: z.number(),
-
             feelslike_c: z.number(),
             feelslike_f: z.number(),
-
             windchill_c: z.number(),
             windchill_f: z.number(),
-
             heatindex_c: z.number(),
             heatindex_f: z.number(),
-
             dewpoint_c: z.number(),
             dewpoint_f: z.number(),
-
             will_it_rain: z.number(),
             chance_of_rain: z.number(),
-
             will_it_snow: z.number(),
             chance_of_snow: z.number(),
-
             vis_km: z.number(),
             vis_miles: z.number(),
-
             gust_mph: z.number(),
             gust_kph: z.number(),
-
             uv: z.number(),
           })
         ),
