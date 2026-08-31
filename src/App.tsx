@@ -8,7 +8,8 @@ import { useState } from "react"
 import type { Coords } from "./schemas/coords"
 
 function App() {
-  const [coords , setCoords] = useState<Coords>({lat:40,lon:100})
+  const [coords , setCoords] = useState<Coords>({lat:0,lon:0})
+
   const { data } = useSuspenseQuery({
     queryKey : ["weather",coords],
     queryFn : () => GetWeather(coords)

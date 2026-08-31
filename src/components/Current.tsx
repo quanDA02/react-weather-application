@@ -15,7 +15,9 @@ export default function Current({current,location}: Props) {
       <div className="justify-items-center">
         <div className='flex flex-col items-left'>
           <p className="text-4xl font-semibold">{location.name}</p>
-          <p className="font-semibold text-gray-500">{location.country}</p>
+          <p className="font-semibold text-gray-500">
+            {location.region!=""?location.region+", ":""}{location.country}
+          </p>
         </div>
         <div className="flex flex-row">
           <img className="size-16" src={current.condition.icon} alt="current" />
