@@ -12,7 +12,9 @@ export default function Hourly({hourly}: Props) {
     <Card title="Hourly weather">
       <div className="flex gap-4 overflow-x-scroll">  
         {hourly.map(hour=>(
-          <div className="flex flex-col gap-2 items-center rounded-2xl p-2 border">
+          <div className="flex flex-col gap-2 items-center rounded-2xl p-2 border"
+            key={hour.time_epoch}
+          >
             <p className="whitespace-nowrap">
               {timeFormat(hour.time_epoch)}
             </p>
