@@ -1,4 +1,5 @@
 import type { Coords } from "./schemas/coords";
+import { locationListSchema } from "./schemas/locationSearchSchema";
 import { weatherSchema } from "./schemas/weatherSchema"
 
 const API_KEY = import.meta.env.VITE_API_KEY
@@ -15,4 +16,12 @@ export async function GetWeather(coords : Coords){
     const forecast = weather.forecast.forecastday
     const location = weather.location
     return {current,hourly,forecast,location}
+}
+
+export async function SearchLocation(search : string){
+    const res = await fetch(
+        `https://api.weatherapi.com/v1/search.json?key=${API_KEY}&q=${search}`
+    )
+    const data = await res.json()
+    return locationListSchema.parse(data)
 }
