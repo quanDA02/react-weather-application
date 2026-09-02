@@ -8,6 +8,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandSeparator,
   CommandShortcut,
 } from "../ui/command";
 
@@ -15,6 +16,9 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Spinner } from "../ui/spinner";
 import type { Coords } from "@/schemas/coords";
+import type { locationHistory } from "@/schemas/locationSearchSchema";
+import { getHistory, addHistory, deleteHistory } from "../utils/history";
+import { Trash2Icon } from "lucide-react";
 type Props = {
   setCoords: React.Dispatch<React.SetStateAction<Coords>>;
 };
@@ -23,6 +27,7 @@ export default function SearchBar({ setCoords }: Props) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("");
+  const [history, setHistory] = useState(getHistory());
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -38,10 +43,25 @@ export default function SearchBar({ setCoords }: Props) {
   });
 
   const handleSelect = (location: string) => {
-    const [_, lat, lon] = location.split("|");
+    const [name, country, lat, lon, isNew] = location.split("|");
     setSearch("");
     setOpen(false);
+    const l: locationHistory = {
+      name: name,
+      country: country,
+      lat: Number(lat),
+      lon: Number(lon),
+    };
+    if (isNew == "1") addHistory(l);
+    setHistory(getHistory());
     setCoords({ lat: Number(lat), lon: Number(lon) });
+  };
+
+  const handleDelete = (index: number) => {
+    const oldHistory = history;
+    const newHistory = oldHistory.filter((_, i) => i != index);
+    setHistory(newHistory);
+    deleteHistory(newHistory);
   };
   return (
     <div className="flex flex-col gap-4">
@@ -66,12 +86,35 @@ export default function SearchBar({ setCoords }: Props) {
               <CommandGroup value={query} heading="Suggestions">
                 {data.map((location) => (
                   <CommandItem
-                    key={location.id}
-                    value={`${location.name}|${location.lat}|${location.lon}`}
+                    key={location.name}
+                    value={`${location.name}|${location.country}|${location.lat}|${location.lon}|1`}
                     onSelect={handleSelect}
                   >
                     <span>{location.name}</span>
                     <CommandShortcut>{location.country}</CommandShortcut>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
+            {history && history.length > 0 && (
+              <CommandGroup value={query} heading="Recent">
+                {history.map((location, index) => (
+                  <CommandItem
+                    key={location.name}
+                    value={`${location.name}|${location.country}|${location.lat}|${location.lon}|0`}
+                    onSelect={handleSelect}
+                  >
+                    <span>{location.name}</span>
+                    <CommandShortcut>{location.country}</CommandShortcut>
+                    <Button
+                      variant="destructive"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(index);
+                      }}
+                    >
+                      <Trash2Icon />
+                    </Button>
                   </CommandItem>
                 ))}
               </CommandGroup>
