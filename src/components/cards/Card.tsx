@@ -1,15 +1,17 @@
-import { type ReactNode } from 'react'
+import { type ReactNode } from "react";
 
 type Props = {
-    title : string
-    children : ReactNode
-}
+  title: string;
+  children: ReactNode;
+};
 
-export default function Card({title,children}: Props) {
+export default function Card({ title, children }: Props) {
   return (
     <div className="relative p-4 rounded-xl bg-card shadow-md border">
-        <h2 className='absolute backdrop-blur-[2px] px-2 text-2xl font-semibold -top-5'>{title}</h2>
-        <div>{children}</div>
+      <h2 className="absolute backdrop-blur-[2px] px-2 text-2xl font-semibold -top-5">
+        {title}
+      </h2>
+      <div>{children}</div>
     </div>
-  )
+  );
 }

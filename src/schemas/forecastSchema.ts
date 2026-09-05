@@ -1,6 +1,7 @@
 import z from "zod";
 import { weatherSchema } from "./weatherSchema";
 
-const forecastSchema = weatherSchema.shape.forecast.shape.forecastday
+const forecastSchema = weatherSchema.shape.forecast.shape.forecastday;
 
-export type Forecast = z.infer<typeof forecastSchema>
+export type Forecast = z.infer<typeof forecastSchema>;
+export type ForecastDay = z.infer<typeof forecastSchema.element>;
